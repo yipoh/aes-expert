@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="We first re-caption 30M images with detailed descriptions using a pre-trained Multi-modality Large Language Model (MLLM), and then study the usage of the resulting captions under a contrastive learning framework.">
+  <meta name="keywords" content="Language-Image Pre-training, Long Captions">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DreamLIP: Language-Image Pre-training with Long Captions</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+<head>
+    <meta charset="UTF-8">
+    <title>adaptive image</title>
+    <style>
+        .responsive-image {
+            width: 50%; 
+            max-width: 600px;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">DreamLIP: Language-Image Pre-training with Long Captions</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zkcys001.github.io/">Kecheng Zheng</a><sup>*1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://github.com/zyf0619sjtu">Yifei Zhang</a><sup>*3</sup>,</span>
+            <span class="author-block">
+              <a href="https://github.com/wuw2019">Wei Wu</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://github.com/LuFan31">Fan Lu</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=dNhzCu4AAAAJ&hl=zh-CN">Shuailei Ma</a><sup>6</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://home.ustc.edu.cn/~jinxustc/">Xin Jin</a><sup>5</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.cad.zju.edu.cn/home/chenwei/">Wei Chen</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://shenyujun.github.io/">Yujun Shen</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Zhejiang University</span>
+            <span class="author-block"><sup>2</sup>Ant Group</span>
+            <span class="author-block"><sup>3</sup>Shanghai Jiao Tong University</span>
+            <span class="author-block"><sup>4</sup>University of Science and Technology of China</span>
+            <span class="author-block"><sup>5</sup>Eastern Institute of Technology</span>
+            <span class="author-block"><sup>6</sup>Northeastern University, China</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2403.17007.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2403.17007"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/zyf0619sjtu/DreamLIP"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zyf0619sjtu/DreamLIP"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="subtitle has-text-centered">
+    <div class="hero-body">
+      <img src='static/images/moti.png' width="1024" height="880",id="teaser-1">
+      <h2 class="subtitle has-text-centered">
+<!--        <p>-->
+<!--          <b>Concept diagrams</b> of generated long caption, image-text retrival, semantic segmentation and image understanding in MLLM.-->
+<!--        </p>-->
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+
+          Language-image pre-training largely relies on how precisely and thoroughly a text describes its paired image.
+          In practice, however, the contents of an image can be so rich that well describing them requires lengthy captions (<i>e.g.</i>, with 10 sentences), which are usually missing in existing datasets.
+          Consequently, there are currently no clear evidences on <i>whether and how language-image pre-training could benefit from long captions</i>.
+          To figure this out, we first re-caption 30M images with detailed descriptions using a pre-trained Multi-modality Large Language Model (MLLM), and then study the usage of the resulting captions under a contrastive learning framework.
+          We observe that, each sentence within a long caption is very likely to describe the image partially (<i>e.g.</i>, an object).
+          Motivated by this, we propose to dynamically sample sub-captions from the text label to construct multiple positive pairs, and introduce a grouping loss to match the embeddings of each sub-caption with its corresponding local image patches in a self-supervised manner.
+          Experimental results on a wide rage of downstream tasks demonstrate the consistent superiority of our method, termed \method, over previous alternatives, highlighting its fine-grained representational capacity.
+          It is noteworthy that, on the tasks of image-text retrieval and semantic segmentation, our model trained with 30M image-text pairs achieves on par or even better performance than CLIP trained with 400M pairs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ Abstract. -->
+</section>
+
+<section class="section pipeline-section">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-3">Pipeline</h2>
+        <img src="static/images/pipeline.jpg" width="960" height="660">
+    </div>
+  </div>
+</section>
+<section class="section experiment-section">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-3">Experiments</h2>
+        <img src="static/images/results.jpg" width="1560" height="660">
+          <p>
+          </p>
+        <img src="static/images/vis_seg_retr_1.png" width="1560" height="660">
+        <h2 class="subtitle has-text-centered">
+          <p>
+            <b>Visualization of semantic segmentation and image-text retrieval. </b>
+          </p>
+        </h2>
+        <img src="static/images/stat.png" width="1280" height="660">
+        <h2 class="subtitle has-text-centered">
+          <p>
+            <b>Statistics of long captions. </b>
+          </p>
+        </h2>
+<!--        <img src="static/images/visualization_attention.png"  width="960" height="660">-->
+<!--        <h2 class="subtitle has-text-centered">-->
+<!--          <p>-->
+<!--            <b>Visualization for Attention Map. </b>-->
+<!--          </p>-->
+<!--        </h2>-->
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{DreamLIP,
+  title={DreamLIP: Language-Image Pre-training with Long Captions},
+  author={Zheng, Kecheng and Zhang, Yifei and Wu, Wei and Lu, Fan and Ma, Shuailei and Jin, Xin and Chen, Wei and Shen, Yujun},
+  journal={arXiv:2403.17007},
+  year={2024}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
