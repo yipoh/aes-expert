@@ -119,7 +119,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2404.09624"
+                <a href="https://arxiv.org/abs/2404.09624"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -176,15 +176,14 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-
-          Language-image pre-training largely relies on how precisely and thoroughly a text describes its paired image.
-          In practice, however, the contents of an image can be so rich that well describing them requires lengthy captions (<i>e.g.</i>, with 10 sentences), which are usually missing in existing datasets.
-          Consequently, there are currently no clear evidences on <i>whether and how language-image pre-training could benefit from long captions</i>.
-          To figure this out, we first re-caption 30M images with detailed descriptions using a pre-trained Multi-modality Large Language Model (MLLM), and then study the usage of the resulting captions under a contrastive learning framework.
-          We observe that, each sentence within a long caption is very likely to describe the image partially (<i>e.g.</i>, an object).
-          Motivated by this, we propose to dynamically sample sub-captions from the text label to construct multiple positive pairs, and introduce a grouping loss to match the embeddings of each sub-caption with its corresponding local image patches in a self-supervised manner.
-          Experimental results on a wide rage of downstream tasks demonstrate the consistent superiority of our method, termed \method, over previous alternatives, highlighting its fine-grained representational capacity.
-          It is noteworthy that, on the tasks of image-text retrieval and semantic segmentation, our model trained with 30M image-text pairs achieves on par or even better performance than CLIP trained with 400M pairs.
+            
+          The highly abstract nature of image aesthetics perception (IAP) poses significant challenge for current multimodal large language models (MLLMs). 
+          The lack of human-annotated multi-modality aesthetic data further exacerbates this dilemma, resulting in MLLMs falling short of aesthetics perception capabilities. 
+          To address the above challenge, we first introduce a comprehensively annotated Aesthetic Multi-Modality Instruction Tuning (AesMMIT) dataset, which serves as the footstone for building multi-modality aesthetics foundation models. 
+          Specifically, to align MLLMs with human aesthetics perception, we construct a corpus-rich aesthetic critique database with 21,904 diverse-sourced images and 88K human natural language feedbacks, which are collected via progressive questions, ranging from coarse-grained aesthetic grades to fine-grained aesthetic descriptions. 
+          To ensure that MLLMs can handle diverse queries, we further prompt GPT to refine the aesthetic critiques and assemble the large-scale aesthetic instruction tuning dataset, <i>i.e.</i> AesMMIT, which consists of 409K multi-typed instructions to activate stronger aesthetic capabilities. 
+          Based on the AesMMIT database, we fine-tune the open-sourced general foundation models, achieving multi-modality Aesthetic Expert models, dubbed AesExpert. 
+          Extensive experiments demonstrate that the proposed AesExpert models deliver significantly better aesthetic perception performances than the state-of-the-art MLLMs, including the most advanced GPT-4V and Gemini-Pro-Vision.            
           </p>
         </div>
       </div>
