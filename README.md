@@ -1,4 +1,4 @@
-# Nerfies
+# AesExpert Homepage
 
 This is the repository that contains source code for the [AesExpert](https://github.com/yipoh/AesExpert).
 
