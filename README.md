@@ -1,6 +1,6 @@
 # Nerfies
 
-This is the repository that contains source code for the [DreamLIP website](https://zyf0619sjtu.github.io/dream-lip/).
+This is the repository that contains source code for the [AesExpert](https://github.com/yipoh/AesExpert).
 
 
 # Website License
